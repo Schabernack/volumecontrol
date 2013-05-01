@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<link rel="shortcut icon" href="static/favicon.ico">
+	<link rel="apple-touch-icon" href="static/app_icon.png"/>
+	<script type="text/JavaScript" src="static/jquery-1.9.1.min.js"></script> 
+	<script type="text/javascript">
+
+	$(function() {
+	
+		$.ajax({
+				type: 'GET',
+				url: "/volume",  
+				success : function(data) {
+					$("#vol").text($.parseJSON(data)["volume"] + "/100")
+				}
+		});
+		
+		
+		$("#increase").click(function() {
+			$.ajax({
+					type: 'POST',
+					url: "/volume", 
+					data : {
+						'change' : '5'
+					}, 
+					success : function(data) {
+						$("#vol").text($.parseJSON(data)["volume"] + "/100")
+					}
+			});
+		})
+
+		$("#decrease").click(function() {
+			$.ajax({
+					type: 'POST',
+					url: "/volume", 
+					data : {
+						'change' : '-5'
+					}, 
+					success : function(data) {
+						$("#vol").text($.parseJSON(data)["volume"] + "/100")						
+					}
+			});
+		})
+
+		$("#mute").click(function() {
+			$.ajax({
+					type: 'POST',
+					url: "/mute", 
+					success : function(data) {
+						$("#vol").text($.parseJSON(data)["volume"] + "/100")						
+					}
+			});
+		})
+
+	});
+
+	</script>
+
+	<title>Vorld Vide Volume</title>
+</head>
+<body>
+<div style="margin-bottom: 100px"></div>
+<div align = "center">
+	<span id="increase" style = "font-size: 1700%; margin: 30px; font-weight: bold"> + </span>
+	<span id="decrease" style = "font-size: 1700%; margin: 30px; font-weight: bold"> - </span> 
+	<div id = "mute" style = "font-size: 900%"> (un)mute </div>
+	<div style="margin-bottom: 50px"></div>
+	<div id="vol" style = "font-size: 800%"> ##/##</div>
+</div>
+
+</body>
+</html>
