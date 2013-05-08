@@ -12,9 +12,8 @@ htmlfile = ""
 
 @app.route("/")
 def hello():
-	f = open(htmlfile)
-	return f.read()
-	f.close()
+	with open(htmlfile) as f:
+		return f.read()
 
 @app.route("/volume", methods = ["POST", "GET"])
 def volume():
